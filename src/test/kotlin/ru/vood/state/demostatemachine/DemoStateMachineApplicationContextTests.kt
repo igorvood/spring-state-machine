@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.statemachine.StateMachine
 import org.springframework.statemachine.config.StateMachineFactory
-import ru.vood.state.demostatemachine.config.FlowEvent.*
-import ru.vood.state.demostatemachine.config.FlowStates
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesContext
 
@@ -17,6 +15,7 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesConte
 class DemoStateMachineApplicationContextTests {
 
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
+
     @Autowired
     lateinit var stateMachineFactory: StateMachineFactory<FlowStatesContext, FlowEventContext>
 

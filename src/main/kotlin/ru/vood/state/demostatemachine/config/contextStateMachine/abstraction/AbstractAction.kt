@@ -26,6 +26,8 @@ abstract class AbstractAction<
         executeWithRunNext(context).let { data ->
             LOGGER.info(" Action TO  ${FlowEventContext.STEP_5_to_7}")
             context.extendedState.variables[data.javaClass.canonicalName] = data.getContextData()
+
+
             context.stateMachine.sendEvent(data.arrow)
         }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
+@Deprecated("asd")
 class PurchaseStateMachineApplicationListenerContext : StateMachineListener<FlowStatesContext, FlowEventContext> {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun stateChanged(from: State<FlowStatesContext, FlowEventContext>?, to: State<FlowStatesContext, FlowEventContext>) {
