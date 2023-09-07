@@ -12,6 +12,8 @@ enum class FlowStatesContext(
     STEP_4(false, false),
     STEP_5(false, false),
     STEP_6(false, false),
-    STEP_7(false, true),
+    STEP_7(false, true);
 
+    override val allNodes: Set<FlowStatesContext>
+        get() = FlowStatesContext.values().toSet()
 }

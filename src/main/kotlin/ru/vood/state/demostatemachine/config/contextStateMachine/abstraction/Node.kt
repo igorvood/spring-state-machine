@@ -6,4 +6,5 @@ interface Node<SELF: Node<SELF, TARROW>, TARROW: Arrow<TARROW, SELF>> {
     val isEndState: Boolean
 
 
+    val allNodes: Set<SELF>
 }
