@@ -5,7 +5,7 @@ import org.springframework.boot.runApplication
 import org.springframework.statemachine.config.EnableStateMachine
 
 @SpringBootApplication
-@EnableStateMachine
+
 class DemoStateMachineApplication
 
 fun main(args: Array<String>) {
