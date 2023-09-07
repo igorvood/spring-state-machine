@@ -19,7 +19,7 @@ import ru.vood.state.demostatemachine.config.FlowStates.*
 class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates, FlowEvent>() {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun configure(states: StateMachineStateConfigurer<FlowStates, FlowEvent>) {
-
+        LOGGER.info("КОНФИГУРАЦИЯ!!!!")
         val begin = FlowStates.values().firstOrNull { it.isBeginState }!!
         val end = FlowStates.values().firstOrNull { it.isEndState }!!
         states

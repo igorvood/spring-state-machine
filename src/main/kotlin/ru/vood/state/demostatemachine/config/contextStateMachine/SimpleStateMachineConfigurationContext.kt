@@ -24,7 +24,6 @@ class SimpleStateMachineConfigurationContext(
             .withStates()
             .initial(begin)
             .end(end)
-//            .state(STEP_5, reservedAction("to 5"), reservedAction("from 5"))
             .states(
                 HashSet(FlowStatesContext.values().toList())
             )
