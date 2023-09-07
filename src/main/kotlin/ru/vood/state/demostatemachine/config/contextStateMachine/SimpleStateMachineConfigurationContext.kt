@@ -66,7 +66,7 @@ class SimpleStateMachineConfigurationContext(
         config
             .withConfiguration()
             .autoStartup(true)
-            .listener(PurchaseStateMachineApplicationListenerContext())
+            .listener(CommonStateMachineApplicationListenerContext<FlowStatesContext, FlowEventContext>())
 
     }
 
