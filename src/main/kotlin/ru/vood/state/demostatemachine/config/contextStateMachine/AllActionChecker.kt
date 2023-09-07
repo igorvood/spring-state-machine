@@ -6,7 +6,7 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Che
 
 @Service
 class AllActionChecker(
-    protected val setActions: Set<AbstractAction<FlowStatesContext, FlowEventContext>>
+    protected val setActions: Set<AbstractAction<FlowStatesContext, FlowEventContext, *>>
 ) : Checker {
     override fun check() {
 

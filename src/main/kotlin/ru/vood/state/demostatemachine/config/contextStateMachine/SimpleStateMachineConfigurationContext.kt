@@ -11,12 +11,13 @@ import org.springframework.statemachine.config.configurers.StateConfigurer
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.ArrowProperty
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.CommonStateMachineApplicationListenerContext
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.ContextData
 
 
 @Configuration
 @EnableStateMachineFactory(name = ["SimpleStateMachineConfigurationContext"])
 class SimpleStateMachineConfigurationContext(
-    private val setActions: Set<AbstractAction<FlowStatesContext, FlowEventContext>>
+    private val setActions: Set<AbstractAction<FlowStatesContext, FlowEventContext, ContextData<FlowStatesContext, FlowEventContext>>>
 ) : StateMachineConfigurerAdapter<FlowStatesContext, FlowEventContext>() {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun configure(states: StateMachineStateConfigurer<FlowStatesContext, FlowEventContext>) {
@@ -49,7 +50,7 @@ class SimpleStateMachineConfigurationContext(
 
     private fun configureStates(
         stateConfigurer: StateConfigurer<FlowStatesContext, FlowEventContext>,
-        actions: Map<FlowStatesContext, AbstractAction<FlowStatesContext, FlowEventContext>>
+        actions: Map<FlowStatesContext, AbstractAction<FlowStatesContext, FlowEventContext, ContextData<FlowStatesContext, FlowEventContext>>>
     ): StateConfigurer<FlowStatesContext, FlowEventContext> {
         if (actions.isNotEmpty()) {
             val stepProps = actions.entries.toList()

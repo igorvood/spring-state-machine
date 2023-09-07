@@ -6,7 +6,11 @@ import org.springframework.statemachine.action.Action
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext
 
 //@Service
-abstract class AbstractAction<NODE : Node<NODE, ARROW>, ARROW : Arrow<ARROW, NODE>>(
+abstract class AbstractAction<
+        NODE : Node<NODE, ARROW>,
+        ARROW : Arrow<ARROW, NODE>,
+        DATA : ContextData<NODE, ARROW>
+        >(
     val from: NODE,
 ) : Action<NODE, ARROW> {
 
@@ -16,12 +20,13 @@ abstract class AbstractAction<NODE : Node<NODE, ARROW>, ARROW : Arrow<ARROW, NOD
 
     abstract val to: Set<ActionTransition<NODE, ARROW>>
 
-    abstract fun executeWithRunNext(context: StateContext<NODE, ARROW>): ARROW
+    abstract fun executeWithRunNext(context: StateContext<NODE, ARROW>): DATA
 
     override fun execute(context: StateContext<NODE, ARROW>) {
-        executeWithRunNext(context).let { qw ->
+        executeWithRunNext(context).let { data ->
             LOGGER.info(" Action TO  ${FlowEventContext.STEP_5_to_7}")
-            context.stateMachine.sendEvent(qw)
+            context.extendedState.variables[data.javaClass.canonicalName] = data.getContextData()
+            context.stateMachine.sendEvent(data.arrow)
         }
 
     }
