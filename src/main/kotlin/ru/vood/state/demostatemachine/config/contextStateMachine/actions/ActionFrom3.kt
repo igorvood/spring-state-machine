@@ -6,6 +6,7 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContex
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext.STEP_3_to_4
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext.values
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesContext
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 
 @Service
 class ActionFrom3 : AbstractAction<FlowStatesContext, FlowEventContext>(FlowStatesContext.STEP_3) {

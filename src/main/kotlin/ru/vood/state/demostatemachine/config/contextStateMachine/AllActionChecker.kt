@@ -1,7 +1,7 @@
 package ru.vood.state.demostatemachine.config.contextStateMachine
 
 import org.springframework.stereotype.Service
-import ru.vood.state.demostatemachine.config.contextStateMachine.actions.AbstractAction
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 
 @Service
 class AllActionChecker(

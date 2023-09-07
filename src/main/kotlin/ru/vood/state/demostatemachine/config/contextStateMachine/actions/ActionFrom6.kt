@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext.STEP_6_TO_7
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesContext
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 
 @Service
 class ActionFrom6 : AbstractAction<FlowStatesContext, FlowEventContext>(FlowStatesContext.STEP_6) {

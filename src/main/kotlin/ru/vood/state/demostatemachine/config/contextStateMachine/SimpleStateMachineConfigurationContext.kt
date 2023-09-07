@@ -8,7 +8,7 @@ import org.springframework.statemachine.config.builders.StateMachineConfiguratio
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer
 import org.springframework.statemachine.config.configurers.StateConfigurer
-import ru.vood.state.demostatemachine.config.contextStateMachine.actions.AbstractAction
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 
 
 @Configuration
