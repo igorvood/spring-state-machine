@@ -28,7 +28,7 @@ class PurchaseStateMachineApplicationListener : StateMachineListener<FlowStates,
     }
 
     override fun eventNotAccepted(event: Message<FlowEvent>) {
-        LOGGER.info("Евент не принят $event")
+        LOGGER.warn("Евент не принят $event")
     }
 
     override fun transition(transition: Transition<FlowStates, FlowEvent>) {

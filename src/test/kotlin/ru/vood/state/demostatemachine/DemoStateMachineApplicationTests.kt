@@ -1,10 +1,14 @@
 package ru.vood.state.demostatemachine
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.messaging.Message
+import org.springframework.messaging.support.GenericMessage
 import org.springframework.statemachine.StateMachine
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter
+import reactor.core.publisher.Mono
 import ru.vood.state.demostatemachine.config.FlowEvent
 import ru.vood.state.demostatemachine.config.FlowEvent.*
 import ru.vood.state.demostatemachine.config.FlowStates
@@ -18,11 +22,17 @@ class DemoStateMachineApplicationTests {
     @Test
     fun contextLoads() {
 
-        stateMachine.sendEvent(STEP_5)
-        stateMachine.sendEvent(STEP_6)
-        stateMachine.sendEvent(STEP_7)
-        stateMachine.sendEvent(STEP_8)
-        stateMachine.sendEvent(STEP_9)
+        listOf(
+            STEP_5,
+            STEP_6,
+            STEP_7,
+            STEP_8,
+            STEP_9)
+            .forEach {
+//                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
+                stateMachine.sendEvent(it)
+            }
+        Assertions.assertEquals(FlowStates.STEP_9, stateMachine.state.id)
 
     }
 
