@@ -19,21 +19,21 @@ class SimpleStateMachineConfigurationContext(
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun configure(states: StateMachineStateConfigurer<FlowStatesContext, FlowEventContext>) {
 
-        val filter = FlowStatesContext.values().filter { it.isBeginState }
+        val begin = FlowStatesContext.values().filter { it.isBeginState }.first()
 
-        val begin = when (filter.size) {
-            0 -> error("Не настроено начальное состояние")
-            1 -> filter.first()
-            else -> error("настроено несколько начальных состояний ${filter}")
-        }
+//        val begin = when (filter.size) {
+//            0 -> error("Не настроено начальное состояние")
+//            1 -> filter.first()
+//            else -> error("настроено несколько начальных состояний ${filter}")
+//        }
 
-        val filter2 = FlowStatesContext.values().filter { it.isEndState }
+        val end = FlowStatesContext.values().filter { it.isEndState }.first()
 
-        val end = when (filter2.size) {
-            0 -> error("Не настроено начальное состояние")
-            1 -> filter2.first()
-            else -> error("настроено несколько начальных состояний ${filter2}")
-        }
+//        val end = when (filter2.size) {
+//            0 -> error("Не настроено начальное состояние")
+//            1 -> filter2.first()
+//            else -> error("настроено несколько начальных состояний ${filter2}")
+//        }
 
         val actions = setActions.associateBy { it.from }
         val stateConfigurer: StateConfigurer<FlowStatesContext, FlowEventContext> = states
