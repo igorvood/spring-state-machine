@@ -1,7 +1,6 @@
 package ru.vood.state.demostatemachine.config.contextStateMachine
 
-interface Arrow {
-    val from: Node
-    val to: Node
-
+interface Arrow<SELF: Arrow<SELF, TNODE>, TNODE: Node<TNODE, SELF>> {
+    val from: Node<TNODE, SELF>
+    val to: Node<TNODE, SELF>
 }

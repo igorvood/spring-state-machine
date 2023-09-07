@@ -3,7 +3,7 @@ package ru.vood.state.demostatemachine.config.contextStateMachine
 enum class FlowEventContext(
     override val from: FlowStatesContext,
     override val to: FlowStatesContext
-) : Arrow {
+) : Arrow<FlowEventContext, FlowStatesContext> {
     STEP_3_to_4(FlowStatesContext.STEP_3, FlowStatesContext.STEP_4),
     STEP_4_to_5(FlowStatesContext.STEP_4, FlowStatesContext.STEP_5),
     STEP_5_to_7(FlowStatesContext.STEP_5, FlowStatesContext.STEP_7),
