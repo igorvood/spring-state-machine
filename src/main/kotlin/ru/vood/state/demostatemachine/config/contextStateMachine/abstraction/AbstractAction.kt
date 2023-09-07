@@ -5,13 +5,11 @@ import org.springframework.statemachine.action.Action
 import ru.vood.state.demostatemachine.config.contextStateMachine.actions.ActionTransition
 
 //@Service
-abstract class AbstractAction<STATE, EVENT>(
-    val from: STATE,
-//    val to: Set<ActionTransition<STATE,EVENT>,
+abstract class AbstractAction<NODE: Node<NODE, ARROW>, ARROW: Arrow<ARROW, NODE>>(
+    val from: NODE,
+    ): Action<NODE, ARROW> {
 
-    ): Action<STATE, EVENT> {
-
-    abstract val to: Set<ActionTransition<STATE, EVENT>>
+    abstract val to: Set<ActionTransition<NODE, ARROW>>
 
     protected val LOGGER = LoggerFactory.getLogger(this.javaClass)
 

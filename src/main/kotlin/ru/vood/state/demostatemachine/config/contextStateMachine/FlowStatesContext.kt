@@ -1,5 +1,6 @@
 package ru.vood.state.demostatemachine.config.contextStateMachine
 
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Node
 
 
 enum class FlowStatesContext(

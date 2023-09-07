@@ -1,5 +1,7 @@
 package ru.vood.state.demostatemachine.config.contextStateMachine
 
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Arrow
+
 enum class FlowEventContext(
     override val from: FlowStatesContext,
     override val to: FlowStatesContext

@@ -1,4 +1,4 @@
-package ru.vood.state.demostatemachine.config.contextStateMachine
+package ru.vood.state.demostatemachine.config.contextStateMachine.abstraction
 
 interface Node<SELF: Node<SELF, TARROW>, TARROW: Arrow<TARROW, SELF>> {
 

@@ -8,6 +8,8 @@ import org.springframework.statemachine.listener.StateMachineListener
 import org.springframework.statemachine.state.State
 import org.springframework.statemachine.transition.Transition
 import org.springframework.stereotype.Service
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Arrow
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Node
 import java.lang.Exception
 
 
