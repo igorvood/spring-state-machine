@@ -11,6 +11,7 @@ import org.springframework.statemachine.config.configurers.StateConfigurer
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Arrow
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Node
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.OneStepProp
 
 
 @Configuration
@@ -72,12 +73,6 @@ class SimpleStateMachineConfigurationContext(
 
     }
 
-    data class OneStepProp<NODE: Node<NODE, ARROW>, ARROW: Arrow<ARROW, NODE>>(
-        val source: NODE,
-        val target: NODE,
-        val event: ARROW,
-        val action: AbstractAction<NODE, ARROW>
-    )
 
     override fun configure(
         transitions: StateMachineTransitionConfigurer<FlowStatesContext, FlowEventContext>
