@@ -14,7 +14,7 @@ import ru.vood.state.demostatemachine.config.FlowStates.*
 
 
 @Configuration
-@EnableStateMachineFactory
+@EnableStateMachineFactory(name = ["SimpleStateMachineConfiguration"])
 //@EnableStateMachine
 class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates, FlowEvent>() {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)

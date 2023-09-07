@@ -1,23 +1,18 @@
 package ru.vood.state.demostatemachine.config.contextStateMachine
 
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.statemachine.action.Action
-import org.springframework.statemachine.config.EnableStateMachine
 import org.springframework.statemachine.config.EnableStateMachineFactory
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer
-import ru.vood.state.demostatemachine.config.FlowStates.*
-import ru.vood.state.demostatemachine.config.PurchaseStateMachineApplicationListener
 import ru.vood.state.demostatemachine.config.contextStateMachine.actions.AbstractAction
 
 
 @Configuration
-@EnableStateMachineFactory
-class SimpleStateMachineConfiguration(
+@EnableStateMachineFactory(name = ["SimpleStateMachineConfigurationContext"])
+class SimpleStateMachineConfigurationContext(
     private val setActions: Set<AbstractAction<FlowStatesContext, FlowEventContext>>
 ) : StateMachineConfigurerAdapter<FlowStatesContext, FlowEventContext>() {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
@@ -43,38 +38,46 @@ class SimpleStateMachineConfiguration(
 
     }
 
+    data class OneStepProp<STATE, EVENT>(
+        val source: STATE,
+        val target: STATE,
+        val event: EVENT,
+        val action: AbstractAction<STATE, EVENT>
+    )
+
     override fun configure(
         transitions: StateMachineTransitionConfigurer<FlowStatesContext, FlowEventContext>
     ) {
 
-        setActions.map {  }
+        val stepProps = setActions
+            .flatMap { qw ->
+                qw.to.map { ass -> OneStepProp(qw.from, ass.toState, ass.toEvent, qw) }
+            }
 
-        transitions
-            .withExternal()
+        configureTransition(transitions, stepProps)
+    }
 
-//            .source(STEP_4).target(STEP_9).event(FlowEvent.STEP_TO_9)
-////            .action { reservedAction("4 to 9") }
-//            .and()
-//
-//            .withExternal()
-//            .name("Первый переход")
-//            .source(STEP_4).target(STEP_5).event(FlowEvent.STEP_5)
-//            .action { reservedAction("4 to 5") }
-//            .and()
-//            .withExternal()
-//            .source(STEP_5).target(STEP_6).event(FlowEvent.STEP_6)
-//            .action { reservedAction("5 to 6") }
-//            .and()
-//            .withExternal()
-//            .source(STEP_6).target(STEP_7).event(FlowEvent.STEP_7)
-////            .action {  reservedAction()}
-//            .and()
-//            .withExternal()
-//            .source(STEP_7).target(STEP_8).event(FlowEvent.STEP_8)
-////            .action {  reservedAction()}
-//            .and()
-//            .withExternal()
-//            .source(STEP_8).target(STEP_9).event(FlowEvent.STEP_9)
+    private tailrec fun configureTransition(
+        transitions: StateMachineTransitionConfigurer<FlowStatesContext, FlowEventContext>,
+        stepProps: List<OneStepProp<FlowStatesContext, FlowEventContext>>
+    ): StateMachineTransitionConfigurer<FlowStatesContext, FlowEventContext> {
+
+        if (stepProps.isNotEmpty()) {
+            val drop = stepProps.drop(1)
+
+            val with = with(stepProps[0]) {
+                val action1 = transitions.withExternal()
+                    .source(source)
+                    .target(target)
+                    .event(event)
+                    .action(action)
+                if (drop.isNotEmpty())
+                    action1.and()
+                else transitions
+
+            }
+            return configureTransition(with, drop)
+        } else return transitions
     }
 
 //    @Bean
