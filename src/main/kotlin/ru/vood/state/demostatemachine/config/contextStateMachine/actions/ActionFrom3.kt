@@ -18,6 +18,5 @@ class ActionFrom3 : AbstractAction<FlowStatesContext, FlowEventContext>(FlowStat
     override fun execute(context: StateContext<FlowStatesContext, FlowEventContext>) {
         LOGGER.info(" Action TO  $STEP_3_to_4")
         context.stateMachine.sendEvent(STEP_3_to_4)
-
     }
 }
