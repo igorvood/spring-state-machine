@@ -1,13 +1,16 @@
 package ru.vood.state.demostatemachine
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.messaging.Message
 import org.springframework.messaging.support.GenericMessage
 import org.springframework.statemachine.StateMachine
+import org.springframework.statemachine.config.EnableStateMachineFactory
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter
+import org.springframework.statemachine.config.StateMachineFactory
 import reactor.core.publisher.Mono
 import ru.vood.state.demostatemachine.config.FlowEvent
 import ru.vood.state.demostatemachine.config.FlowEvent.*
@@ -17,7 +20,14 @@ import ru.vood.state.demostatemachine.config.FlowStates
 class DemoStateMachineApplicationTests {
 
     @Autowired
+    lateinit var stateMachineFactory: StateMachineFactory<FlowStates, FlowEvent>
+
     lateinit var stateMachine: StateMachine<FlowStates, FlowEvent>
+
+    @BeforeEach
+    fun asdkjh(){
+        stateMachine = stateMachineFactory.stateMachine
+    }
 
     @Test
     fun contextLoads1() {
