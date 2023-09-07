@@ -3,7 +3,6 @@ package ru.vood.state.demostatemachine.config.contextStateMachine.abstraction
 import org.slf4j.LoggerFactory
 import org.springframework.statemachine.StateContext
 import org.springframework.statemachine.action.Action
-import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext
 
 //@Service
 abstract class AbstractAction<
@@ -24,10 +23,8 @@ abstract class AbstractAction<
 
     override fun execute(context: StateContext<NODE, ARROW>) {
         executeWithRunNext(context).let { data ->
-            LOGGER.info(" Action TO  ${FlowEventContext.STEP_5_to_7}")
+            LOGGER.info(" Action TO  ${data.arrow}")
             context.extendedState.variables[data.javaClass.canonicalName] = data.getContextData()
-
-
             context.stateMachine.sendEvent(data.arrow)
         }
 
