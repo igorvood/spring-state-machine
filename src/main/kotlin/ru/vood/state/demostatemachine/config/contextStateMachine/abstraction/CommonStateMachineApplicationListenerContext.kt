@@ -1,4 +1,4 @@
-package ru.vood.state.demostatemachine.config.contextStateMachine
+package ru.vood.state.demostatemachine.config.contextStateMachine.abstraction
 
 import org.slf4j.LoggerFactory
 import org.springframework.messaging.Message
@@ -8,8 +8,6 @@ import org.springframework.statemachine.listener.StateMachineListener
 import org.springframework.statemachine.state.State
 import org.springframework.statemachine.transition.Transition
 import org.springframework.stereotype.Service
-import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Arrow
-import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Node
 import java.lang.Exception
 
 

@@ -10,6 +10,7 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 import org.springframework.statemachine.config.configurers.StateConfigurer
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.ArrowProperty
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.CommonStateMachineApplicationListenerContext
 
 
 @Configuration
