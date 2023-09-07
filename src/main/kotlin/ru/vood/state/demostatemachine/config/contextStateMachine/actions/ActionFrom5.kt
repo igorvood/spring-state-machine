@@ -15,7 +15,8 @@ class ActionFrom5 : AbstractAction<FlowStatesContext, FlowEventContext>(FlowStat
             .toSet()
 
     override fun execute(context: StateContext<FlowStatesContext, FlowEventContext>) {
-        context.stateMachine.sendEvent(STEP_5_to_7)
         LOGGER.info(" Action TO  $STEP_5_to_7")
+        context.stateMachine.sendEvent(STEP_5_to_7)
+
     }
 }

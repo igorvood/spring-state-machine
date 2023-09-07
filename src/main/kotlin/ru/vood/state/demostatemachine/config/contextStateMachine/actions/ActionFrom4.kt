@@ -17,11 +17,13 @@ class ActionFrom4 : AbstractAction<FlowStatesContext, FlowEventContext>(FlowStat
     override fun execute(context: StateContext<FlowStatesContext, FlowEventContext>) {
         val i = context.hashCode() % 2
         if (i == 0) {
-            context.stateMachine.sendEvent(STEP_4_TO_6)
             LOGGER.info(" Action TO  $STEP_4_TO_6")
+            context.stateMachine.sendEvent(STEP_4_TO_6)
+
         } else {
-            context.stateMachine.sendEvent(STEP_4_to_5)
             LOGGER.info(" Action TO  $STEP_4_to_5")
+            context.stateMachine.sendEvent(STEP_4_to_5)
+
         }
     }
 }
