@@ -29,7 +29,7 @@ class DemoStateMachineApplicationContextTests {
 
     @Test
     fun contextLoads1() {
-        LOGGER.info("BEGIN "+stateMachine)
+//        LOGGER.info("BEGIN "+stateMachine)
         listOf(
             FlowEventContext.STEP_4_to_5,
 //            FlowEventContext.STEP_5_to_7,
@@ -38,17 +38,16 @@ class DemoStateMachineApplicationContextTests {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
                 stateMachine.sendEvent(it)
             }
-
         Thread.sleep(1000)
 
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
         val message = stateMachine.transitions
-        LOGGER.info("END "+stateMachine)
+//        LOGGER.info("END "+stateMachine)
     }
 
     @Test
     fun contextLoads2() {
-        LOGGER.info("BEGIN "+stateMachine)
+//        LOGGER.info("BEGIN "+stateMachine)
         listOf(
             FlowEventContext.STEP_4_TO_6,
 //            FlowEventContext.STEP_6_TO_7,
@@ -60,7 +59,7 @@ class DemoStateMachineApplicationContextTests {
         Thread.sleep(1000)
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
         val message = stateMachine.transitions
-        LOGGER.info("END "+stateMachine)
+//        LOGGER.info("END "+stateMachine)
 
     }
 
