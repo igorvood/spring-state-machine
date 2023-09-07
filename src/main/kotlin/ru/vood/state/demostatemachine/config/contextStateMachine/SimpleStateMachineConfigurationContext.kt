@@ -9,9 +9,7 @@ import org.springframework.statemachine.config.builders.StateMachineStateConfigu
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer
 import org.springframework.statemachine.config.configurers.StateConfigurer
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
-import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Arrow
-import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Node
-import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.OneStepProp
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.ArrowProperty
 
 
 @Configuration
@@ -80,7 +78,7 @@ class SimpleStateMachineConfigurationContext(
 
         val stepProps = setActions
             .flatMap { qw ->
-                qw.to.map { ass -> OneStepProp(qw.from, ass.toState, ass.toEvent, qw) }
+                qw.to.map { ass -> ArrowProperty(qw.from, ass.toState, ass.toEvent, qw) }
             }
 
         configureTransition(transitions, stepProps)
@@ -88,7 +86,7 @@ class SimpleStateMachineConfigurationContext(
 
     private tailrec fun configureTransition(
         transitions: StateMachineTransitionConfigurer<FlowStatesContext, FlowEventContext>,
-        stepProps: List<OneStepProp<FlowStatesContext, FlowEventContext>>
+        stepProps: List<ArrowProperty<FlowStatesContext, FlowEventContext>>
     ): StateMachineTransitionConfigurer<FlowStatesContext, FlowEventContext> {
 
         if (stepProps.isNotEmpty()) {
