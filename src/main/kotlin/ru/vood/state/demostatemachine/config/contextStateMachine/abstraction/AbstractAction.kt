@@ -19,8 +19,6 @@ abstract class AbstractAction<NODE : Node<NODE, ARROW>, ARROW : Arrow<ARROW, NOD
     abstract fun executeWithRunNext(context: StateContext<NODE, ARROW>): ARROW
 
     override fun execute(context: StateContext<NODE, ARROW>) {
-
-
         executeWithRunNext(context).let { qw ->
             LOGGER.info(" Action TO  ${FlowEventContext.STEP_5_to_7}")
             context.stateMachine.sendEvent(qw)
