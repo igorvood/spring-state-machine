@@ -27,7 +27,7 @@ class DemoStateMachineApplicationContextTests {
 
     @Test
     fun contextLoads1() {
-
+        println(stateMachine)
         listOf(
             FlowEventContext.STEP_4_to_5,
             FlowEventContext.STEP_5_to_7,
@@ -37,12 +37,13 @@ class DemoStateMachineApplicationContextTests {
                 stateMachine.sendEvent(it)
             }
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
-
+        val message = stateMachine.transitions
+        println(message)
     }
 
     @Test
     fun contextLoads2() {
-
+        println(stateMachine)
         listOf(
             FlowEventContext.STEP_4_TO_6,
             FlowEventContext.STEP_6_TO_7,
@@ -52,6 +53,8 @@ class DemoStateMachineApplicationContextTests {
                 stateMachine.sendEvent(it)
             }
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
+        val message = stateMachine.transitions
+        println(message)
 
     }
 
