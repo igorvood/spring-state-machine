@@ -11,8 +11,9 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Abs
 
 @Service
 class ActionFrom3 : AbstractFlowAction(FlowStatesContext.STEP_3) {
-    override fun execute(context: StateContext<FlowStatesContext, FlowEventContext>) {
-        LOGGER.info(" Action TO  $STEP_3_to_4")
-        context.stateMachine.sendEvent(STEP_3_to_4)
+
+    override fun executeWithRunNext(context: StateContext<FlowStatesContext, FlowEventContext>): FlowEventContext {
+        return FlowEventContext.STEP_3_to_4
     }
+
 }
