@@ -15,20 +15,22 @@ class PurchaseStateMachineApplicationListener : StateMachineListener<FlowStates,
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun stateChanged(from: State<FlowStates, FlowEvent>?, to: State<FlowStates, FlowEvent>) {
         if (from?.id != null) {
-            LOGGER.info("Переход из статуса " + from.id + " в статус " + to.id)
+            LOGGER.info("stateChanged: Переход из статуса " + from.id + " в статус " + to.id)
+        }else {
+            LOGGER.info("stateChanged: Начальный статус " + to.id)
         }
     }
 
     override fun stateEntered(state: State<FlowStates, FlowEvent>) {
-
+            LOGGER.info("stateEntered: Зашли в статус " + state.id)
     }
 
     override fun stateExited(state: State<FlowStates, FlowEvent>) {
-
+        LOGGER.info("stateExited: Вышли из статуса " + state.id)
     }
 
     override fun eventNotAccepted(event: Message<FlowEvent>) {
-        LOGGER.warn("Евент не принят $event")
+        LOGGER.warn("eventNotAccepted: Евент не принят $event")
     }
 
     override fun transition(transition: Transition<FlowStates, FlowEvent>) {
