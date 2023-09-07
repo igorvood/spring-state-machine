@@ -14,16 +14,19 @@ import org.springframework.stereotype.Service
 @Deprecated("asd")
 class PurchaseStateMachineApplicationListenerContext : StateMachineListener<FlowStatesContext, FlowEventContext> {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
-    override fun stateChanged(from: State<FlowStatesContext, FlowEventContext>?, to: State<FlowStatesContext, FlowEventContext>) {
+    override fun stateChanged(
+        from: State<FlowStatesContext, FlowEventContext>?,
+        to: State<FlowStatesContext, FlowEventContext>
+    ) {
         if (from?.id != null) {
             LOGGER.info("stateChanged: Переход из статуса " + from.id + " в статус " + to.id)
-        }else {
+        } else {
             LOGGER.info("stateChanged: Начальный статус " + to.id)
         }
     }
 
     override fun stateEntered(state: State<FlowStatesContext, FlowEventContext>) {
-            LOGGER.info("stateEntered: Зашли в статус " + state.id)
+        LOGGER.info("stateEntered: Зашли в статус " + state.id)
     }
 
     override fun stateExited(state: State<FlowStatesContext, FlowEventContext>) {
@@ -54,7 +57,10 @@ class PurchaseStateMachineApplicationListenerContext : StateMachineListener<Flow
 
     }
 
-    override fun stateMachineError(stateMachine: StateMachine<FlowStatesContext, FlowEventContext>, exception: Exception) {
+    override fun stateMachineError(
+        stateMachine: StateMachine<FlowStatesContext, FlowEventContext>,
+        exception: Exception
+    ) {
 
     }
 

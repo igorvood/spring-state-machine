@@ -8,11 +8,11 @@ import org.springframework.statemachine.listener.StateMachineListener
 import org.springframework.statemachine.state.State
 import org.springframework.statemachine.transition.Transition
 import org.springframework.stereotype.Service
-import java.lang.Exception
 
 
 @Service
-class CommonStateMachineApplicationListenerContext<NODE: Node<NODE, ARROW>, ARROW: Arrow<ARROW, NODE>> : StateMachineListener<NODE, ARROW> {
+class CommonStateMachineApplicationListenerContext<NODE : Node<NODE, ARROW>, ARROW : Arrow<ARROW, NODE>> :
+    StateMachineListener<NODE, ARROW> {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun stateChanged(from: State<NODE, ARROW>?, to: State<NODE, ARROW>) {
         if (from?.id != null) {

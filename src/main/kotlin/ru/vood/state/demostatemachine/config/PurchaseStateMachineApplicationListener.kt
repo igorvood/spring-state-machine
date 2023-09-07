@@ -16,13 +16,13 @@ class PurchaseStateMachineApplicationListener : StateMachineListener<FlowStates,
     override fun stateChanged(from: State<FlowStates, FlowEvent>?, to: State<FlowStates, FlowEvent>) {
         if (from?.id != null) {
             LOGGER.info("stateChanged: Переход из статуса " + from.id + " в статус " + to.id)
-        }else {
+        } else {
             LOGGER.info("stateChanged: Начальный статус " + to.id)
         }
     }
 
     override fun stateEntered(state: State<FlowStates, FlowEvent>) {
-            LOGGER.info("stateEntered: Зашли в статус " + state.id)
+        LOGGER.info("stateEntered: Зашли в статус " + state.id)
     }
 
     override fun stateExited(state: State<FlowStates, FlowEvent>) {

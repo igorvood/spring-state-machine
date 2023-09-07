@@ -6,7 +6,7 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.Nod
 enum class FlowStatesContext(
     override val isBeginState: Boolean,
     override val isEndState: Boolean
-): Node<FlowStatesContext, FlowEventContext> {
+) : Node<FlowStatesContext, FlowEventContext> {
 
     STEP_3(true, false),
     STEP_4(false, false),

@@ -13,28 +13,17 @@ abstract class AbstractStateMachineConfigurationContext<
         ARROW : Arrow<ARROW, NODE>,
         DATA : ContextData<NODE, ARROW>
         >(
-    private val setActions: Set<AbstractAction<NODE, ARROW, *>>,
+    private val setActions: Set<AbstractAction<NODE, ARROW, DATA>>,
 //    private val arrows: Arrow<ARROW, NODE>,
     private val nodes: Set<Node<NODE, ARROW>>
 ) : StateMachineConfigurerAdapter<NODE, ARROW>() {
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun configure(states: StateMachineStateConfigurer<NODE, ARROW>) {
 
-        val begin: NODE = nodes.filter { it.isBeginState }.first() as NODE
 
-//        val begin = when (filter.size) {
-//            0 -> error("Не настроено начальное состояние")
-//            1 -> filter.first()
-//            else -> error("настроено несколько начальных состояний ${filter}")
-//        }
+        val begin: NODE = nodes.first { it.isBeginState } as NODE
 
         val end = nodes.filter { it.isEndState }.first() as NODE
-
-//        val end = when (filter2.size) {
-//            0 -> error("Не настроено начальное состояние")
-//            1 -> filter2.first()
-//            else -> error("настроено несколько начальных состояний ${filter2}")
-//        }
 
         val actions = setActions.associateBy { it.from }
         val stateConfigurer = states
@@ -46,11 +35,11 @@ abstract class AbstractStateMachineConfigurationContext<
 
     }
 
-    private fun configureStates(
+    private tailrec fun configureStates(
         stateConfigurer: StateConfigurer<NODE, ARROW>,
         actions: Map<NODE, AbstractAction<NODE, ARROW, *>>
     ): StateConfigurer<NODE, ARROW> {
-        if (actions.isNotEmpty()) {
+        return if (actions.isNotEmpty()) {
             val stepProps = actions.entries.toList()
             val drop = stepProps.drop(1)
 
@@ -59,8 +48,8 @@ abstract class AbstractStateMachineConfigurationContext<
                     .state(this.key, this.value, null)
 
             }
-            return configureStates(with, drop.associate { it.key to it.value })
-        } else return stateConfigurer
+            configureStates(with, drop.associate { it.key to it.value })
+        } else stateConfigurer
     }
 
     override fun configure(config: StateMachineConfigurationConfigurer<NODE, ARROW>) {

@@ -5,13 +5,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.messaging.Message
-import org.springframework.messaging.support.GenericMessage
 import org.springframework.statemachine.StateMachine
-import org.springframework.statemachine.config.EnableStateMachineFactory
-import org.springframework.statemachine.config.StateMachineConfigurerAdapter
 import org.springframework.statemachine.config.StateMachineFactory
-import reactor.core.publisher.Mono
 import ru.vood.state.demostatemachine.config.FlowEvent
 import ru.vood.state.demostatemachine.config.FlowEvent.*
 import ru.vood.state.demostatemachine.config.FlowStates
@@ -25,7 +20,7 @@ class DemoStateMachineApplicationTests {
     lateinit var stateMachine: StateMachine<FlowStates, FlowEvent>
 
     @BeforeEach
-    fun asdkjh(){
+    fun asdkjh() {
         stateMachine = stateMachineFactory.stateMachine
     }
 
@@ -37,7 +32,8 @@ class DemoStateMachineApplicationTests {
             STEP_6,
             STEP_7,
             STEP_8,
-            STEP_9)
+            STEP_9
+        )
             .forEach {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
                 stateMachine.sendEvent(it)
@@ -51,7 +47,7 @@ class DemoStateMachineApplicationTests {
         val initialState = stateMachine.initialState
         listOf(
             STEP_TO_9,
-)
+        )
             .forEach {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
                 stateMachine.sendEvent(it)

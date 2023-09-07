@@ -12,8 +12,8 @@ class AllActionChecker(
 
         val map = setActions.map { it.from }.toSet().plus(FlowStatesContext.values().filter { it.isEndState })
         val values = FlowStatesContext.values().toSet()
-        assert( values.containsAll(map))
-        assert( map.containsAll(values))
+        assert(values.containsAll(map))
+        assert(map.containsAll(values))
 
 //        val equals = fromBeans.equals(fromEvents)
 //        assert(equals)

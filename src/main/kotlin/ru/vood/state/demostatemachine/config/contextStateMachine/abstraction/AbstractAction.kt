@@ -9,7 +9,7 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContex
 abstract class AbstractAction<
         NODE : Node<NODE, ARROW>,
         ARROW : Arrow<ARROW, NODE>,
-        DATA : ContextData<NODE, ARROW>
+        out DATA : ContextData<NODE, ARROW>
         >(
     val from: NODE,
 ) : Action<NODE, ARROW> {

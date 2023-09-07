@@ -1,10 +1,8 @@
 package ru.vood.state.demostatemachine.config
 
 import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.statemachine.action.Action
-import org.springframework.statemachine.config.EnableStateMachine
 import org.springframework.statemachine.config.EnableStateMachineFactory
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer
@@ -71,12 +69,12 @@ class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates
             .source(STEP_8).target(STEP_9).event(FlowEvent.STEP_9)
     }
 
-//    @Bean
+    //    @Bean
     fun reservedAction(s: String): Action<FlowStates, FlowEvent> {
 
         val value =
             Action<FlowStates, FlowEvent> { context ->
-                LOGGER.info(s + " "+context.extendedState.toString())
+                LOGGER.info(s + " " + context.extendedState.toString())
             }
 
         return value
