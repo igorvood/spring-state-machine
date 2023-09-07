@@ -7,6 +7,7 @@ import org.springframework.statemachine.config.StateMachineConfigurerAdapter
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer
+import org.springframework.statemachine.config.configurers.StateConfigurer
 import ru.vood.state.demostatemachine.config.contextStateMachine.actions.AbstractAction
 
 
@@ -18,15 +19,37 @@ class SimpleStateMachineConfigurationContext(
     val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun configure(states: StateMachineStateConfigurer<FlowStatesContext, FlowEventContext>) {
 
+        val actions = setActions.map { it.from to it }.toMap()
         val begin = FlowStatesContext.values().firstOrNull { it.isBeginState }!!
         val end = FlowStatesContext.values().firstOrNull { it.isEndState }!!
-        states
+        val stateConfigurer: StateConfigurer<FlowStatesContext, FlowEventContext> = states
             .withStates()
             .initial(begin)
             .end(end)
-            .states(
-                HashSet(FlowStatesContext.values().toList())
-            )
+
+        val endasd2: StateConfigurer<FlowStatesContext, FlowEventContext> = configureStates(stateConfigurer, actions)
+
+//        val end1 = stateConfigurer
+//            .states(
+//                HashSet(FlowStatesContext.values().toList())
+//            )
+    }
+
+    private fun configureStates(
+        stateConfigurer: StateConfigurer<FlowStatesContext, FlowEventContext>,
+        actions: Map<FlowStatesContext, AbstractAction<FlowStatesContext, FlowEventContext>>
+    ): StateConfigurer<FlowStatesContext, FlowEventContext> {
+        if (actions.isNotEmpty()) {
+            val stepProps = actions.entries.toList()
+            val drop = stepProps.drop(1)
+
+            val with = with(stepProps[0]) {
+                stateConfigurer
+                    .state(this.key, this.value, null)
+
+            }
+            return configureStates(with, drop.associate { it.key to it.value })
+        } else return stateConfigurer
     }
 
     override fun configure(config: StateMachineConfigurationConfigurer<FlowStatesContext, FlowEventContext>) {
@@ -69,7 +92,7 @@ class SimpleStateMachineConfigurationContext(
                     .source(source)
                     .target(target)
                     .event(event)
-                    .action(action)
+//                    .action(action)
                 if (drop.isNotEmpty())
                     action1.and()
                 else transitions

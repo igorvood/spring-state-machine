@@ -3,6 +3,7 @@ package ru.vood.state.demostatemachine
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.statemachine.StateMachine
@@ -15,6 +16,7 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesConte
 @SpringBootTest
 class DemoStateMachineApplicationContextTests {
 
+    val LOGGER = LoggerFactory.getLogger(this.javaClass)
     @Autowired
     lateinit var stateMachineFactory: StateMachineFactory<FlowStatesContext, FlowEventContext>
 
@@ -27,34 +29,38 @@ class DemoStateMachineApplicationContextTests {
 
     @Test
     fun contextLoads1() {
-        println(stateMachine)
+        LOGGER.info("BEGIN "+stateMachine)
         listOf(
             FlowEventContext.STEP_4_to_5,
-            FlowEventContext.STEP_5_to_7,
+//            FlowEventContext.STEP_5_to_7,
         )
             .forEach {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
                 stateMachine.sendEvent(it)
             }
+
+        Thread.sleep(1000)
+
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
         val message = stateMachine.transitions
-        println(message)
+        LOGGER.info("END "+stateMachine)
     }
 
     @Test
     fun contextLoads2() {
-        println(stateMachine)
+        LOGGER.info("BEGIN "+stateMachine)
         listOf(
             FlowEventContext.STEP_4_TO_6,
-            FlowEventContext.STEP_6_TO_7,
+//            FlowEventContext.STEP_6_TO_7,
         )
             .forEach {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
                 stateMachine.sendEvent(it)
             }
+        Thread.sleep(1000)
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
         val message = stateMachine.transitions
-        println(message)
+        LOGGER.info("END "+stateMachine)
 
     }
 
