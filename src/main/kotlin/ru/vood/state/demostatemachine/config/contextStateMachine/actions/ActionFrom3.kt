@@ -7,15 +7,10 @@ import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContex
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext.values
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesContext
 import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractAction
+import ru.vood.state.demostatemachine.config.contextStateMachine.abstraction.AbstractFlowAction
 
 @Service
-class ActionFrom3 : AbstractAction<FlowStatesContext, FlowEventContext>(FlowStatesContext.STEP_3) {
-    override val to: Set<ActionTransition<FlowStatesContext, FlowEventContext>>
-        get() = values()
-            .filter { it.from == from }
-            .map { qw -> ActionTransition(qw.to, qw) }
-            .toSet()
-
+class ActionFrom3 : AbstractFlowAction(FlowStatesContext.STEP_3) {
     override fun execute(context: StateContext<FlowStatesContext, FlowEventContext>) {
         LOGGER.info(" Action TO  $STEP_3_to_4")
         context.stateMachine.sendEvent(STEP_3_to_4)
