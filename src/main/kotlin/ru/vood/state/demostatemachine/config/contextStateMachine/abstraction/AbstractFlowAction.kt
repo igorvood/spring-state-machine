@@ -2,7 +2,6 @@ package ru.vood.state.demostatemachine.config.contextStateMachine.abstraction
 
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowStatesContext
-import ru.vood.state.demostatemachine.config.contextStateMachine.actions.ActionTransition
 
 abstract class AbstractFlowAction(from: FlowStatesContext) : AbstractAction<FlowStatesContext, FlowEventContext>(from) {
 

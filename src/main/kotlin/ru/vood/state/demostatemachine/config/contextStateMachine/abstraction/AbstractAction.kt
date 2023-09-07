@@ -4,7 +4,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.statemachine.StateContext
 import org.springframework.statemachine.action.Action
 import ru.vood.state.demostatemachine.config.contextStateMachine.FlowEventContext
-import ru.vood.state.demostatemachine.config.contextStateMachine.actions.ActionTransition
 
 //@Service
 abstract class AbstractAction<NODE : Node<NODE, ARROW>, ARROW : Arrow<ARROW, NODE>>(
