@@ -1,8 +1,8 @@
 package ru.vood.state.demostatemachine.config
 
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.statemachine.StateContext
 import org.springframework.statemachine.action.Action
 import org.springframework.statemachine.config.EnableStateMachine
 import org.springframework.statemachine.config.EnableStateMachineFactory
@@ -17,7 +17,7 @@ import ru.vood.state.demostatemachine.config.FlowStates.*
 //@EnableStateMachineFactory
 @EnableStateMachine
 class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates, FlowEvent>() {
-
+    val LOGGER = LoggerFactory.getLogger(this.javaClass)
     override fun configure(states: StateMachineStateConfigurer<FlowStates, FlowEvent>) {
 
         val begin = FlowStates.values().firstOrNull { it.isBeginState }!!
@@ -26,6 +26,7 @@ class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates
             .withStates()
             .initial(begin)
             .end(end)
+            .state(STEP_5, reservedAction("to 5"), reservedAction("from 5"))
             .states(
                 HashSet(FlowStates.values().toList())
             )
@@ -35,20 +36,28 @@ class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates
         config
             .withConfiguration()
             .autoStartup(true)
-            .listener( PurchaseStateMachineApplicationListener())
+            .listener(PurchaseStateMachineApplicationListener())
 
     }
 
     override fun configure(
         transitions: StateMachineTransitionConfigurer<FlowStates, FlowEvent>
     ) {
-        transitions.withExternal()
+        transitions
+            .withExternal()
+
+            .source(STEP_4).target(STEP_9).event(FlowEvent.STEP_TO_9)
+//            .action { reservedAction("4 to 9") }
+            .and()
+
+            .withExternal()
+            .name("Первый переход")
             .source(STEP_4).target(STEP_5).event(FlowEvent.STEP_5)
-//            .action {  reservedAction()}
+            .action { reservedAction("4 to 5") }
             .and()
             .withExternal()
             .source(STEP_5).target(STEP_6).event(FlowEvent.STEP_6)
-//            .action {  reservedAction()}
+            .action { reservedAction("5 to 6") }
             .and()
             .withExternal()
             .source(STEP_6).target(STEP_7).event(FlowEvent.STEP_7)
@@ -62,13 +71,12 @@ class SimpleStateMachineConfiguration : StateMachineConfigurerAdapter<FlowStates
             .source(STEP_8).target(STEP_9).event(FlowEvent.STEP_9)
     }
 
-    @Bean
-    fun reservedAction(): Action<FlowStates, FlowEvent> {
+//    @Bean
+    fun reservedAction(s: String): Action<FlowStates, FlowEvent> {
 
         val value =
             Action<FlowStates, FlowEvent> { context ->
-                val message = context.message
-                println(context.extendedState.toString())
+                LOGGER.info(s + " "+context.extendedState.toString())
             }
 
         return value

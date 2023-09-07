@@ -20,7 +20,7 @@ class DemoStateMachineApplicationTests {
     lateinit var stateMachine: StateMachine<FlowStates, FlowEvent>
 
     @Test
-    fun contextLoads() {
+    fun contextLoads1() {
 
         listOf(
             STEP_5,
@@ -28,6 +28,20 @@ class DemoStateMachineApplicationTests {
             STEP_7,
             STEP_8,
             STEP_9)
+            .forEach {
+//                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
+                stateMachine.sendEvent(it)
+            }
+        Assertions.assertEquals(FlowStates.STEP_9, stateMachine.state.id)
+
+    }
+
+    @Test
+    fun contextLoads2() {
+        val initialState = stateMachine.initialState
+        listOf(
+            STEP_TO_9,
+)
             .forEach {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
                 stateMachine.sendEvent(it)
