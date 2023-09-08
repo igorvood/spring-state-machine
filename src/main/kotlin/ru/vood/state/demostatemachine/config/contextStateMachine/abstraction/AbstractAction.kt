@@ -1,12 +1,10 @@
 package ru.vood.state.demostatemachine.config.contextStateMachine.abstraction
 
 import org.slf4j.LoggerFactory
-import org.springframework.messaging.Message
 import org.springframework.messaging.support.GenericMessage
 import org.springframework.statemachine.StateContext
 import org.springframework.statemachine.action.Action
 import reactor.core.publisher.Mono
-import reactor.kotlin.core.publisher.toMono
 
 //@Service
 abstract class AbstractAction<
@@ -30,10 +28,8 @@ abstract class AbstractAction<
             LOGGER.info(" Action TO  ${data.arrow} context ${context.stateMachine.extendedState.variables}")
             context.extendedState.variables[data.javaClass.canonicalName] = data.getContextData()
             val message = GenericMessage(data.arrow)
-            val sendEvent = context.stateMachine.sendEvent(Mono.fromCallable { GenericMessage(data.arrow) })
-            sendEvent.toMono().block()
-
-//            context.stateMachine.sendEvent(data.arrow)
+            context.stateMachine.sendEvent(Mono.just(GenericMessage(data.arrow)))
+                .subscribe()
         }
 
     }
