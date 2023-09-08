@@ -55,7 +55,7 @@ abstract class AbstractStateMachineConfigurationContext<
     override fun configure(config: StateMachineConfigurationConfigurer<NODE, ARROW>) {
         config
             .withConfiguration()
-            .autoStartup(true)
+//            .autoStartup(true)
             .listener(CommonStateMachineApplicationListenerContext<NODE, ARROW>())
 
     }
@@ -95,21 +95,4 @@ abstract class AbstractStateMachineConfigurationContext<
             return configureTransition(with, drop)
         } else return transitions
     }
-
-//    @Bean
-//    fun reservedAction(s: String): Action<FlowStatesContext, FlowEventContext> {
-//
-//        val value =
-//            Action<FlowStatesContext, FlowEventContext> { context ->
-//                LOGGER.info(s + " "+context.extendedState.toString())
-//            }
-//
-//        return value
-//    }
-
-//    @Bean
-//    fun persister(): StateMachinePersister<FlowStates, FlowEvent, String> {
-//        return DefaultStateMachinePersister<FlowStates, FlowEvent, String>(PurchaseStateMachinePersister())
-//    }
-
 }

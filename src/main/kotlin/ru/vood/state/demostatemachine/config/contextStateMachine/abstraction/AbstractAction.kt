@@ -23,7 +23,7 @@ abstract class AbstractAction<
 
     override fun execute(context: StateContext<NODE, ARROW>) {
         executeWithRunNext(context).let { data ->
-            LOGGER.info(" Action TO  ${data.arrow}")
+            LOGGER.info(" Action TO  ${data.arrow} context ${context.stateMachine.extendedState.variables}")
             context.extendedState.variables[data.javaClass.canonicalName] = data.getContextData()
             context.stateMachine.sendEvent(data.arrow)
         }
