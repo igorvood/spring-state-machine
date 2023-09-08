@@ -44,7 +44,7 @@ class DemoStateMachineApplicationContextTests {
 //                stateMachine.sendEvent(Mono.fromCallable { GenericMessage(it) })
 ////                stateMachine.sendEvent(it)
 //            }
-//        Thread.sleep(1000)
+//        Thread.sleep(10000)
 
         Assertions.assertEquals(FlowStatesContext.STEP_7, stateMachine.state.id)
         val message = stateMachine.transitions
