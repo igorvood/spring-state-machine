@@ -27,7 +27,6 @@ abstract class AbstractAction<
         executeWithRunNext(context).let { data ->
             LOGGER.info(" Action TO  ${data.arrow} context ${context.stateMachine.extendedState.variables}")
             context.extendedState.variables[data.javaClass.canonicalName] = data.getContextData()
-            val message = GenericMessage(data.arrow)
             context.stateMachine.sendEvent(Mono.just(GenericMessage(data.arrow)))
                 .subscribe()
         }
